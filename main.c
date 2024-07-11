@@ -1,16 +1,18 @@
-#include "str.h"
+#include <unistd.h>
+#include "regex.h" // "str.h" -> stdio.h, stdlib.h, string.h, stdbool.h
 
 int main(void)
 {
     string* test = str("This is a test. ");
-    puts(test->data);
-    printf("Length: %zu\n", test->length);
     strAppend(test, "And this is another.");
-    puts(test->data);
-    printf("Length: %zu\n", test->length);
+    string* regTest = str("/test/");
+    bool test1 = isRegex(test);
+    bool test2 = isRegex(regTest);
+    printf("This example is a valid regex? %d\n", test1);
+    printf("This example is a valid regex? %d\n", test2);
     strClear(test);
-    printf("Cleared string: %s(EOF)\n", test->data);
-    printf("Length: %zu\n", test->length);
     strFree(test);
+    strFree(regTest);
+    // sleep(10);
     return 0;
 }

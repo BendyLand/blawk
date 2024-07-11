@@ -33,7 +33,7 @@ void strAppend(string* original, char* suffix)
     size_t newLen = original->length + strlen(suffix); 
     char* newData = (char*)realloc(original->data, newLen + 1);
     if (!newData) {
-        perror("Unable to allocate memory for temporary string.\n");
+        perror("Unable to reallocate memory for new string.\n");
         exit(EXIT_FAILURE);
     }
     strcat(newData, suffix);
@@ -45,6 +45,46 @@ void strClear(string* original)
 {
     original->data[0] = '\0';
     char* newData = (char*)realloc(original->data, 1);
+    if (!newData) {
+        perror("Unable to reallocate memory for cleared string.\n");
+        exit(EXIT_FAILURE);
+    }
     original->data = newData;
     original->length = 0;
+}
+
+int indexOf(string* text, char* pattern)
+{
+    int result = -1;
+    size_t len = strlen(pattern);
+    for (size_t i = 0; i < text->length; i++) {
+        if (text->data[i] == pattern[0]) {
+            size_t j = 0;
+            while (text->data[i+j] == pattern[j]) j++; 
+            if (j == len) result = i;
+        }
+    }
+    return result;
+}
+
+bool contains(string* text, char* pattern)
+{
+    size_t len = strlen(pattern);
+    for (size_t i = 0; i < text->length; i++) {
+        if (text->data[i] == pattern[0]) {
+            size_t j = 0;
+            while (text->data[i+j] == pattern[j]) j++; 
+            if (j == len) return true;
+        }
+    }
+    return false;
+}
+
+size_t count(string* text, char c)
+{
+    size_t result = 0;
+    for (size_t i = 0; i < text->length; i++) {
+        if (text->data[i] == c) result++;
+    }
+    return result;
 }
