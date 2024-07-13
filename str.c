@@ -1,4 +1,4 @@
-#include "str.h"
+#include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
 
 string* str(char* text)
 {
@@ -53,6 +53,12 @@ void strClear(string* original)
     original->length = 0;
 }
 
+string* strCopy(string* original)
+{
+    string* result = str(original->data);
+    return result;
+}
+
 int indexOf(string* text, char* pattern)
 {
     int result = -1;
@@ -60,7 +66,7 @@ int indexOf(string* text, char* pattern)
     for (size_t i = 0; i < text->length; i++) {
         if (text->data[i] == pattern[0]) {
             size_t j = 0;
-            while (text->data[i+j] == pattern[j]) j++; 
+            while (text->data[i+j] == pattern[j]) j++;
             if (j == len) result = i;
         }
     }
@@ -73,7 +79,7 @@ bool contains(string* text, char* pattern)
     for (size_t i = 0; i < text->length; i++) {
         if (text->data[i] == pattern[0]) {
             size_t j = 0;
-            while (text->data[i+j] == pattern[j]) j++; 
+            while (text->data[i+j] == pattern[j]) j++;
             if (j == len) return true;
         }
     }
@@ -87,4 +93,68 @@ size_t count(string* text, char c)
         if (text->data[i] == c) result++;
     }
     return result;
+}
+
+size_t countStr(string* text, char* s)
+{
+    size_t result = 0;
+    for (size_t i = 0; i < text->length; i++) {
+        if (text->data[i] == s[0]) {
+            size_t j = 0;
+            while (text->data[i+j] == s[j]) j++;
+            if (j == strlen(s)) result++;
+        }
+    }
+    return result;
+}
+
+stringArray* strArr(string* original, char* delim)
+{
+    stringArray* result = (stringArray*)malloc(sizeof(stringArray));
+    if (!result) {
+        perror("Unable to allocate memory for string array.\n");
+        exit(EXIT_FAILURE);
+    }
+    size_t len = countStr(original, delim)+1;
+    result->entries = (string**)malloc(sizeof(string*) * (len+1));
+    char* token = strtok(original->data, delim);
+    size_t current = 0;
+    while (token != NULL) {
+        string* temp = str(token);
+        result->entries[current] = temp; 
+        current++;
+        token = strtok(NULL, delim);
+    }
+    result->entries[current] = NULL;
+    result->length = len;
+    return result;
+}
+
+size_t strArrFree(stringArray* arr)
+{
+    if (arr) {
+        if (arr->entries) {
+            for (size_t i = 0; i < arr->length; i++) {
+                if (arr->entries[i]) {
+                    free(arr->entries[i]->data);
+                    arr->entries[i]->data = NULL;
+                }
+                free(arr->entries[i]);
+                arr->entries[i] = NULL;
+            }
+            free(arr->entries);
+            arr->entries = NULL;
+        }
+        free(arr);
+        arr = NULL;
+        return 1;
+    }
+    return 0;
+}
+
+void strArrDisplay(stringArray* arr)
+{
+    for (size_t i = 0; i < arr->length; i++) {
+        puts(arr->entries[i]->data);
+    }
 }

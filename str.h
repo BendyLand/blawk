@@ -12,6 +12,12 @@ typedef struct
     size_t length;
 } string;
 
+typedef struct
+{
+    string** entries;
+    size_t length;
+} stringArray;
+
 /**
  * Constructor for the string type.
  * @param text The text to be saved in the string type.
@@ -57,10 +63,28 @@ bool contains(string* haystack, char* needle);
 
 /**
  * Counts the number of times a letter is found in the source text.
- * @param text The string the look through. 
- * @param letter The letter to look for within the string.
- * @returns The number of times the letter is found in the string.  
+ * @param text The string to look through. 
+ * @param c The letter to look for within the string.
+ * @returns The number of times the letter is found in the text.  
  */
-size_t count(string* text, char letter);
+size_t count(string* text, char c);
+
+/**
+ * Counts the numver of times a substring is found in the source text.
+ * @param text The string to look through.
+ * @param s The substring to look for within the string.
+ * @returns The number of times the substring is found in the text.
+ */
+size_t countStr(string* text, char* s);
+
+/**
+ * Constructor function for the stringArray* type.
+ * @param original The string* to split into an array.
+ * @param delim The delimiter to split the string by.
+ * @returns A stringArray* of the split string.
+ */
+stringArray* strArr(string* original, char* delim);
+size_t strArrFree(stringArray* arr);
+void strArrDisplay(stringArray* arr);
 
 #endif
