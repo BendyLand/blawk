@@ -84,7 +84,18 @@ size_t countStr(string* text, char* s);
  * @returns A stringArray* of the split string.
  */
 stringArray* strArr(string* original, char* delim);
+
+/**
+ * Destructor function for the stringArray* type.
+ * @param arr The stringArray* to free.
+ * returns 1 if the array was successfully freed, 0 otherwise. 
+ */
 size_t strArrFree(stringArray* arr);
+
+/**
+ * Prints all of the entries in the given string array.
+ * @param arr The stringArray* to print out.
+ */
 void strArrDisplay(stringArray* arr);
 
 #endif
