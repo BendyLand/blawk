@@ -1,4 +1,5 @@
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
+#include <stdlib.h>
 
 string* str(char* text)
 {
@@ -23,20 +24,34 @@ size_t strFree(string* str)
     if (str) {
         free(str->data);
         free(str);
-        return 1;
+        return 0;
     }
-    return 0;
+    return 1;
 }
 
 void strAppend(string* original, char* suffix)
 {
     size_t newLen = original->length + strlen(suffix); 
-    char* newData = (char*)realloc(original->data, newLen + 1);
+    char* newData = (char*)realloc(original->data, newLen+1);
     if (!newData) {
         perror("Unable to reallocate memory for new string.\n");
         exit(EXIT_FAILURE);
     }
     strcat(newData, suffix);
+    original->data = newData;
+    original->length = newLen;
+}
+
+void strAppendChar(string* original, char c)
+{
+    size_t newLen = original->length + 1;
+    char* newData = (char*)realloc(original->data, newLen+1);
+    if (!newData) {
+        perror("Failed to reallocate memory for new string.\n");
+        exit(EXIT_FAILURE);
+    }
+    newData[newLen-1] = c;
+    newData[newLen] = '\0';
     original->data = newData;
     original->length = newLen;
 }
@@ -108,6 +123,21 @@ size_t countStr(string* text, char* s)
     return result;
 }
 
+string* substr(string* original, size_t start, size_t end)
+{
+    size_t len = end - start + 1;
+    char temp[len];
+    size_t current = 0;
+    for (size_t i = 0; i < original->length; i++) {
+        if (i >= start && i < end) {
+            temp[current] = original->data[i];
+            current++;
+        }
+    }
+    temp[current] = '\0';
+    return str(temp);
+}
+
 stringArray* strArr(string* original, char* delim)
 {
     stringArray* result = (stringArray*)malloc(sizeof(stringArray));
@@ -147,14 +177,29 @@ size_t strArrFree(stringArray* arr)
         }
         free(arr);
         arr = NULL;
-        return 1;
+        return 0;
     }
-    return 0;
+    return 1;
+}
+
+void strArrAppend(stringArray* original, string* item)
+{
+    size_t newLen = original->length + 1;
+    original->entries = (string**)realloc(original->entries, sizeof(string**) * (newLen+1));
+    if (!original->entries) {
+        perror("Unable to reallocate memory for new string array.\n");
+        exit(EXIT_FAILURE);
+    }
+    original->entries[newLen-1] = item;
+    original->entries[newLen] = NULL;
+    original->length = newLen;
 }
 
 void strArrDisplay(stringArray* arr)
 {
     for (size_t i = 0; i < arr->length; i++) {
-        puts(arr->entries[i]->data);
+        if (arr->entries[i]) {
+            puts(arr->entries[i]->data);
+        }
     }
 }

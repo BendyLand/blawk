@@ -25,6 +25,8 @@ typedef struct
  */  
 string* str(char* text);
 
+string* strCopy(string* original);
+
 /** 
  * Destructor for the string type.
  * @param str The string* to be freed.
@@ -38,6 +40,7 @@ size_t strFree(string* str);
  * @param suffix The additional characters to add onto the base string.
  */
 void strAppend(string* original, char* suffix);
+void strAppendChar(string* original, char c);
 
 /**
  * Removes any characters from the string, in place.
@@ -97,5 +100,14 @@ size_t strArrFree(stringArray* arr);
  * @param arr The stringArray* to print out.
  */
 void strArrDisplay(stringArray* arr);
+
+/**
+ * Creates a substring out of the characters between the given indices of the original string.
+ * @param original The string* to extract the substring from.
+ * @param start The start index.
+ * @param end The end index. Exclusive range.
+ */
+string* substr(string* original, size_t start, size_t end);
+void strArrAppend(stringArray* original, string* item);
 
 #endif

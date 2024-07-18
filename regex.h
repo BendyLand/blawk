@@ -8,5 +8,6 @@
  * @returns A boolean representing whether or not the given string contains a valid regex.
  */
 bool isRegex(string* input);
+stringArray* expandCharClass(string* original);
 
 #endif
