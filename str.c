@@ -1,4 +1,5 @@
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
+#include "utils.h"
 
 string* str(char* text)
 {
@@ -73,70 +74,6 @@ string* strCopy(string* original)
     return result;
 }
 
-int indexOf(string* text, char* pattern)
-{
-    int result = -1;
-    size_t len = strlen(pattern);
-    for (size_t i = 0; i < text->length; i++) {
-        if (text->data[i] == pattern[0]) {
-            size_t j = 0;
-            while (text->data[i+j] == pattern[j]) j++;
-            if (j == len) result = i;
-        }
-    }
-    return result;
-}
-
-bool contains(string* text, char* pattern)
-{
-    size_t len = strlen(pattern);
-    for (size_t i = 0; i < text->length; i++) {
-        if (text->data[i] == pattern[0]) {
-            size_t j = 0;
-            while (text->data[i+j] == pattern[j]) j++;
-            if (j == len) return true;
-        }
-    }
-    return false;
-}
-
-size_t count(string* text, char c)
-{
-    size_t result = 0;
-    for (size_t i = 0; i < text->length; i++) {
-        if (text->data[i] == c) result++;
-    }
-    return result;
-}
-
-size_t countStr(string* text, char* s)
-{
-    size_t result = 0;
-    for (size_t i = 0; i < text->length; i++) {
-        if (text->data[i] == s[0]) {
-            size_t j = 0;
-            while (text->data[i+j] == s[j]) j++;
-            if (j == strlen(s)) result++;
-        }
-    }
-    return result;
-}
-
-string* substr(string* original, size_t start, size_t end)
-{
-    size_t len = end - start + 1;
-    char temp[len];
-    size_t current = 0;
-    for (size_t i = 0; i < original->length; i++) {
-        if (i >= start && i < end) {
-            temp[current] = original->data[i];
-            current++;
-        }
-    }
-    temp[current] = '\0';
-    return str(temp);
-}
-
 stringArray* strArr(string* original, char* delim)
 {
     stringArray* result = (stringArray*)malloc(sizeof(stringArray));
@@ -144,7 +81,7 @@ stringArray* strArr(string* original, char* delim)
         perror("Unable to allocate memory for string array.\n");
         exit(EXIT_FAILURE);
     }
-    size_t len = countStr(original, delim)+1;
+    size_t len = strCountStr(original, delim)+1;
     result->entries = (string**)malloc(sizeof(string*) * (len+1));
     char* token = strtok(original->data, delim);
     size_t current = 0;

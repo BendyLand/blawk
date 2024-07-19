@@ -5,7 +5,7 @@
 
 int main(void)
 {
-    string* test = str("Th[iau]nk");
+    string* test = str("Th[i-u]nk");
     stringArray* res = expandCharClass(test);
     strArrDisplay(res);
     size_t f1 = strFree(test);
