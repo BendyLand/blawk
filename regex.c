@@ -25,7 +25,7 @@ string* expandRange(string* chars)
         if (idx - 1 == 0) {
             string* temp = substr(chars, idx+2, chars->length);
             strAppend(result, temp->data);
-            strFree(temp);
+            (void)strFree(temp);
         }
     }
     (void)strFree(alphaNums);
@@ -43,7 +43,7 @@ stringArray* expandCharClass(string* pattern)
     bool hasRange = strContainsChar(patternChars, '-');
     if (hasRange) {
         string* range = expandRange(patternChars);
-        strFree(patternChars);
+        (void)strFree(patternChars);
         patternChars = range;
         //todo: create function to insert range chars back into original pattern, rather than replacing
     }
@@ -59,10 +59,10 @@ stringArray* expandCharClass(string* pattern)
         else {
             strArrAppend(result, strCopy(temp));
         }
-        strFree(temp);
+        (void)strFree(temp);
     }
-    strFree(firstHalf);
-    strFree(secondHalf);
-    strFree(patternChars);
+    (void)strFree(firstHalf);
+    (void)strFree(secondHalf);
+    (void)strFree(patternChars);
     return result;
 }

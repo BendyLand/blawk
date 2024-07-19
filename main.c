@@ -10,6 +10,6 @@ int main(void)
     size_t f1 = strFree(test);
     size_t f2 = strArrFree(res);
     printf("String freed? %zu\nString array freed? %zu\n", f1, f2);
-    sleep(10);
+    // sleep(10);
     return 0;
 }
