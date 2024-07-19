@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include "regex.h" // "str.h" -> stdio.h, stdlib.h, string.h, stdbool.h
 #include "str.h"
+#include "utils.h"
 
 int main(void)
 {

@@ -1,5 +1,4 @@
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
-#include <stdlib.h>
 
 string* str(char* text)
 {
