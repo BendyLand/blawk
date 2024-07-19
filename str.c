@@ -1,5 +1,4 @@
-#include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
-#include "utils.h"
+#include "utils.h" // "str.h" -> stdio.h, stdlib.h, string.h, stdbool.h
 
 string* str(char* text)
 {

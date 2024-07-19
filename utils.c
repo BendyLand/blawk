@@ -80,7 +80,7 @@ int indexOfStr(string* text, char* pattern)
         if (text->data[i] == pattern[0]) {
             size_t j = 0;
             while (text->data[i+j] == pattern[j]) j++;
-            if (j == len) result = i;
+            if (j == len) result = (int)i;
         }
     }
     return result;

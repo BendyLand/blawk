@@ -1,9 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include <stdio.h>
-#include <stdbool.h>
-#include "str.h"
+#include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
 
 bool strContainsChar(string* haystack, char needle);
 bool strContainsStr(string* haystack, char* needle);

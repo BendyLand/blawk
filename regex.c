@@ -21,6 +21,13 @@ string* expandRange(string* chars)
     else {
         result = chars;
     }
+    if (chars->length > 3) {
+        if (idx - 1 == 0) {
+            string* temp = substr(chars, idx+2, chars->length);
+            strAppend(result, temp->data);
+            strFree(temp);
+        }
+    }
     (void)strFree(alphaNums);
     return result;
 }
@@ -36,8 +43,9 @@ stringArray* expandCharClass(string* pattern)
     bool hasRange = strContainsChar(patternChars, '-');
     if (hasRange) {
         string* range = expandRange(patternChars);
-        printf("Range: %s\n", range->data);
-        //todo: create function to insert range chars back into original pattern
+        strFree(patternChars);
+        patternChars = range;
+        //todo: create function to insert range chars back into original pattern, rather than replacing
     }
     stringArray* result = NULL;
     for (size_t i = 0; i < patternChars->length; i++) {
