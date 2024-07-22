@@ -1,5 +1,4 @@
-#ifndef REGEX_H
-#define REGEX_H
+#pragma once
 
 #include "str.h" // stdio.h, stdlib.h, string.h, stdbool.h
 
@@ -9,5 +8,3 @@
  */
 bool isRegex(string* input);
 stringArray* expandCharClass(string* original);
-
-#endif

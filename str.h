@@ -1,5 +1,4 @@
-#ifndef STR_H
-#define STR_H
+#pragma once
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -109,5 +108,4 @@ void strArrDisplay(stringArray* arr);
  */
 string* substr(string* original, size_t start, size_t end);
 void strArrAppend(stringArray* original, string* item);
-
-#endif
+string* strArrJoin(stringArray* original, char* delim);

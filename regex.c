@@ -1,7 +1,6 @@
-
 #include <stdbool.h>
 #include "str.h" // stdio.h, string.h, stdlib.h
-#include "utils.h"
+#include "utils.h" // "str.h"
 
 bool isRegex(string* input)
 {
