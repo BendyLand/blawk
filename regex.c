@@ -78,4 +78,3 @@ bool isMatch(string* text, string* pattern)
     strArrFree(patterns);
     return false;
 }
-
