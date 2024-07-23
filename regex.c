@@ -65,3 +65,17 @@ stringArray* expandCharClass(string* pattern)
     (void)strFree(patternChars);
     return result;
 }
+
+bool isMatch(string* text, string* pattern)
+{
+    stringArray* patterns = expandCharClass(pattern);
+    for (size_t i = 0; i < patterns->length; i++) {
+        if (strcmp(text->data, patterns->entries[i]->data) == 0) {
+            strArrFree(patterns);
+            return true;
+        }
+    }
+    strArrFree(patterns);
+    return false;
+}
+
