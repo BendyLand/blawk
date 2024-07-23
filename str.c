@@ -139,12 +139,12 @@ void strArrDisplay(stringArray* arr)
     }
 }
 
-string* strArrJoin(stringArray* original, char* delim)
+string* strArrJoin(stringArray* arr, char* delim)
 {
     string* result = str("");
-    for (size_t i = 0; i < original->length; i++) {
-        strAppend(result, original->entries[i]->data);
-        if (i < original->length-1) strAppend(result, delim);
+    for (size_t i = 0; i < arr->length; i++) {
+        strAppend(result, arr->entries[i]->data);
+        if (i < arr->length-1) strAppend(result, delim);
     }
     return result;
 }

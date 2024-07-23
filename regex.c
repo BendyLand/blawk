@@ -44,7 +44,6 @@ stringArray* expandCharClass(string* pattern)
         string* range = expandRange(patternChars);
         (void)strFree(patternChars);
         patternChars = range;
-        //todo: create function to insert range chars back into original pattern, rather than replacing
     }
     stringArray* result = NULL;
     for (size_t i = 0; i < patternChars->length; i++) {

@@ -101,11 +101,16 @@ size_t strArrFree(stringArray* arr);
 void strArrDisplay(stringArray* arr);
 
 /**
- * Creates a substring out of the characters between the given indices of the original string.
- * @param original The string* to extract the substring from.
- * @param start The start index.
- * @param end The end index. Exclusive range.
+ * Appends a new element to the provided stringArray* in place.
+ * @param original The string array to add on to.
+ * @param item The new element to add to the array.
  */
-string* substr(string* original, size_t start, size_t end);
 void strArrAppend(stringArray* original, string* item);
-string* strArrJoin(stringArray* original, char* delim);
+
+/**
+ * Creates a new string by joining the given string array by the delimiter.
+ * @param arr The stringArray to join.
+ * @param delim The char* delimiter to join the array by.
+ * @returns A new string made from the array data.
+ */
+string* strArrJoin(stringArray* arr, char* delim);
