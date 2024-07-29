@@ -67,6 +67,7 @@ int indexOfChar(string* text, char c)
     for (size_t i = 0; i < text->length; i++) {
         if (text->data[i] == c) {
             result = (int)i;
+            break;
         }
     }
     return result;

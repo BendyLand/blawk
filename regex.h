@@ -8,4 +8,5 @@
  */
 bool isRegex(string* input);
 bool isMatch(string* text, string* pattern);
+string* extractPattern(string* pattern);
 stringArray* expandCharClass(string* original);

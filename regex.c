@@ -7,6 +7,17 @@ bool isRegex(string* input)
     return strCountChar(input, '/') == 2;
 }
 
+string* extractPattern(string* pattern)
+{
+    if (!isRegex(pattern)) return str("");
+    size_t start = indexOfChar(pattern, '/');
+    string* temp = substr(pattern, start+1, pattern->length);
+    size_t end = indexOfChar(temp, '/') + (pattern->length - temp->length);
+    (void)strFree(temp);
+    string* result = substr(pattern, start+1, end);
+    return result;
+}
+
 string* expandRange(string* chars)
 {
     string* alphaNums = str("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
