@@ -78,13 +78,16 @@ stringArray* expandCharClass(string* pattern)
 
 bool isMatch(string* text, string* pattern)
 {
-    stringArray* patterns = expandCharClass(pattern);
+    string* patternChars = extractPattern(pattern);
+    stringArray* patterns = expandCharClass(patternChars);
     for (size_t i = 0; i < patterns->length; i++) {
         if (strcmp(text->data, patterns->entries[i]->data) == 0) {
             strArrFree(patterns);
+            strFree(patternChars);
             return true;
         }
     }
     strArrFree(patterns);
+    strFree(patternChars);
     return false;
 }
