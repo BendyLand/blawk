@@ -1,10 +1,34 @@
 #include <stdbool.h>
+#include "regex.h"
 #include "str.h" // stdio.h, string.h, stdlib.h
 #include "utils.h" // "str.h"
 
 bool isRegex(string* input)
 {
     return strCountChar(input, '/') == 2;
+}
+
+bool startsWithAnchor(string* input)
+{
+    string* temp = extractPattern(input);
+    bool result = false;
+    if (temp->data[0] == '^') result = true;
+    strFree(temp);
+    return result;
+}
+
+bool endsWithAnchor(string* input)
+{
+    string* temp = extractPattern(input);
+    bool result = false;
+    if (temp->data[temp->length-1] == '$') result = true;
+    strFree(temp);
+    return result;
+}
+
+bool hasSurroundingAnchors(string* input)
+{
+    return startsWithAnchor(input) && endsWithAnchor(input);
 }
 
 string* extractPattern(string* pattern)
