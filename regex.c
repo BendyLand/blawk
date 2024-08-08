@@ -10,20 +10,12 @@ bool isRegex(string* input)
 
 bool startsWithAnchor(string* input)
 {
-    string* temp = extractPattern(input);
-    bool result = false;
-    if (temp->data[0] == '^') result = true;
-    strFree(temp);
-    return result;
+    return input->data[0] == '^';
 }
 
 bool endsWithAnchor(string* input)
 {
-    string* temp = extractPattern(input);
-    bool result = false;
-    if (temp->data[temp->length-1] == '$') result = true;
-    strFree(temp);
-    return result;
+    return input->data[input->length-1] == '$';
 }
 
 bool hasSurroundingAnchors(string* input)
@@ -39,6 +31,24 @@ string* extractPattern(string* pattern)
     size_t end = indexOfChar(temp, '/') + (pattern->length - temp->length);
     (void)strFree(temp);
     string* result = substr(pattern, start+1, end);
+    if (hasSurroundingAnchors(result)) {
+        string* s = strCopy(result);
+        (void)strFree(result);
+        result = substr(s, 1, s->length-1);
+        (void)strFree(s);
+    }
+    else if (startsWithAnchor(result)) {
+        string* s = strCopy(result);
+        (void)strFree(result);
+        result = substr(s, 1, s->length+1);
+        (void)strFree(s);
+    }
+    else if (endsWithAnchor(result)) {
+        string* s = strCopy(result);
+        (void)strFree(result);
+        result = substr(s, 0, s->length-1);
+        (void)strFree(s);
+    }
     return result;
 }
 
